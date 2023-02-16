@@ -1,5 +1,6 @@
 package com.sda.OnlineShop.dto;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -13,5 +14,6 @@ public class ProductDto {
     private String category;
     private String quantity;
     private String description;
-
+    @ToString.Exclude
+    private String image;
 }

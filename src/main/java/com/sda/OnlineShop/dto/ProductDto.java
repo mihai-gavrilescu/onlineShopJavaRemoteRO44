@@ -13,5 +13,6 @@ public class ProductDto {
     private String category;
     private String quantity;
     private String description;
-
+    @ToString.Exclude
+    private String image;
 }

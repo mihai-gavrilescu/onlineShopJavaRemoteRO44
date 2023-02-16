@@ -1,8 +1,6 @@
 package com.sda.OnlineShop.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,4 +16,7 @@ public class Product {
     private String category;
     private Integer quantity;
     private String description;
+    @Lob
+    @Column(columnDefinition = "BLOB")
+    private byte[] image;
 }

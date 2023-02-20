@@ -1,18 +1,17 @@
 package com.sda.OnlineShop.controller;
 
+import com.fasterxml.jackson.annotation.OptBoolean;
 import com.sda.OnlineShop.dto.ProductDto;
 import com.sda.OnlineShop.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class MainController {
@@ -45,5 +44,16 @@ public class MainController {
         List<ProductDto> productDtos = productService.getAllProductDtos();
         model.addAttribute("productDtos", productDtos);
         return "home";
+    }
+
+    @GetMapping("/product/{productId}")
+    public String viewProductGet(@PathVariable(value = "productId") String productId, Model model) {
+        Optional<ProductDto> optionalProductDto = productService.getOptionalProductDtoById(productId);
+        if (optionalProductDto.isEmpty()) {
+            return "error";
+        }
+        model.addAttribute("productDto", optionalProductDto.get());
+        System.out.println("Am dat click pe produsul cu id-ul: " + productId);
+        return "viewProduct";
     }
 }

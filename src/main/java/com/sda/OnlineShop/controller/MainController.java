@@ -1,6 +1,5 @@
 package com.sda.OnlineShop.controller;
 
-import com.fasterxml.jackson.annotation.OptBoolean;
 import com.sda.OnlineShop.dto.ProductDto;
 import com.sda.OnlineShop.dto.RegistrationDto;
 import com.sda.OnlineShop.services.ProductService;
@@ -52,16 +51,13 @@ public class MainController {
         return "home";
     }
 
-
-    @GetMapping("/product/{productId}")
-    public String viewProductGet(@PathVariable(value = "productId") String productId, Model model) {
-
+    @GetMapping("/product/{name}/{productId}")
+    public String viewProductGet(Model model, @PathVariable(value = "productId") String productId) {
         Optional<ProductDto> optionalProductDto = productService.getOptionalProductDtoById(productId);
         if (optionalProductDto.isEmpty()) {
             return "error";
         }
         model.addAttribute("productDto", optionalProductDto.get());
-
         System.out.println("Am dat click pe produsul cu id-ul " + productId);
         return "viewProduct";
     }
@@ -85,5 +81,6 @@ public class MainController {
     public String viewLoginGet() {
         return "login";
     }
+
 
 }

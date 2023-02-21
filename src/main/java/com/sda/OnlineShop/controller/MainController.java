@@ -53,7 +53,7 @@ public class MainController {
     }
 
 
-    @GetMapping("/product/{productId}")
+    @GetMapping("/product/{name}/{productId}")
     public String viewProductGet(@PathVariable(value = "productId") String productId, Model model) {
 
         Optional<ProductDto> optionalProductDto = productService.getOptionalProductDtoById(productId);

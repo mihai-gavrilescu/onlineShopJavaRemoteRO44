@@ -19,8 +19,6 @@ import java.util.Optional;
 
 @Controller
 public class MainController {
-
-
     @Autowired
     private ProductService productService;
 
@@ -85,14 +83,11 @@ public class MainController {
             return "registration";
         }
         registrationService.addRegistration(registrationDto);
-        System.out.println("S-a apelat funcționalitatea de viewRegistrationPost " + registrationDto);
         return "registration";
     }
-
 
     @GetMapping("/login")
     public String viewLoginGet() {
         return "login";
     }
 
-}

@@ -18,7 +18,10 @@ public class RegistrationDtoValidator {
     public void validate(RegistrationDto registrationDto, BindingResult bindingResult) {
         Optional<User> optionalUser = userRepository.findByEmailAddress(registrationDto.getEmailAddress());
         if (optionalUser.isPresent()) {
-            FieldError fieldError = new FieldError("registrationDto", "emailAddress", "The email is already in use");
+
+            FieldError fieldError = new FieldError("registrationDto", "emailAddress",
+                    "The email is already in use!");
+
             bindingResult.addError(fieldError);
         }
     }

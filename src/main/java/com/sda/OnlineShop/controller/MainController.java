@@ -4,6 +4,7 @@ import com.sda.OnlineShop.dto.ProductDto;
 import com.sda.OnlineShop.dto.RegistrationDto;
 import com.sda.OnlineShop.dto.SelectedProductDto;
 import com.sda.OnlineShop.dto.ShoppingCartDto;
+import com.sda.OnlineShop.services.OrderService;
 import com.sda.OnlineShop.services.ProductService;
 import com.sda.OnlineShop.services.RegistrationService;
 import com.sda.OnlineShop.services.ShoppingCartService;
@@ -33,6 +34,9 @@ public class MainController {
 
     @Autowired
     private ShoppingCartService shoppingCartService;
+
+    @Autowired
+    private OrderService orderService;
 
     //handler care se ocupă de request-uri de tip Get pe /addProduct:
     @GetMapping("/addProduct")
@@ -115,10 +119,17 @@ public class MainController {
         return "login";
     }
 
-    @GetMapping("checkout")
+    @GetMapping("/checkout")
     public String viewCheckoutGet(Authentication authentication, Model model) {
         ShoppingCartDto shoppingCartDto = shoppingCartService.getShoppingCartDto(authentication.getName());
         model.addAttribute("shoppingCartDto", shoppingCartDto);
+        System.out.println(shoppingCartDto);
         return "checkout";
+    }
+
+    @PostMapping("/confirmation")
+    public String launchOrderPost(Authentication authentication) {
+        orderService.launchOrder(authentication.getName());
+        return "confirmation";
     }
 }
